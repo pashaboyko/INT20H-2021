@@ -10,27 +10,14 @@ from pipeline import Model_Pipeline,CleaningTextData,FillingNaN,TfIdf
 import nltk
 import ssl
 
-import sys
-import os
-
-if os.environ.get('DISPLAY','') == '':
-    print('no display found. Using :0.0')
-    os.environ.__setitem__('DISPLAY', ':0.0')
-
-
-import os
-import matplotlib as mpl
-if os.environ.get('DISPLAY','') == '':
-    print('no display found. Using non-interactive Agg backend')
-    mpl.use('Agg')
-
 try:
     _create_unverified_https_context = ssl._create_unverified_context
 except AttributeError:
     pass
 else:
     ssl._create_default_https_context = _create_unverified_https_context
-nltk.download()
+nltk.download('stopwords')
+from nltk.corpus import stopwords
 
 log = None
 app = Flask(__name__)
