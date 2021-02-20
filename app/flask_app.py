@@ -30,7 +30,8 @@ def hello_world():
 
 if __name__ == "__main__":
 
-	app.run(debug=False,host='0.0.0.0')
+
+    app.run(debug=False,host='0.0.0.0')
 	
     log_directory = 'log'
     if not os.path.exists(log_directory):
