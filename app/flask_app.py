@@ -24,9 +24,11 @@ from nltk.stem import WordNetLemmatizer
 log = None
 app = Flask(__name__)
 
+data = ""
+
 @app.route('/')
 def hello_world():
-	return 'ВЕЛИКИЙ SYSAN делает вещи.'
+	return str(data)
 
 if __name__ == "__main__":
 	
