@@ -38,8 +38,8 @@ if __name__ == "__main__":
     #log = logg.get_log("Web-server")
 
 
-    X_full = pd.read_csv('train.csv', index_col='id')
-    pipeline = Model_Pipeline("dft_idf_500.joblib")
+    X_full = pd.read_csv('test.csv', index_col='id')
+    pipeline = Model_Pipeline("dft_idf_200.joblib")
 
     data = pipeline.pipelineData(X_full)
 

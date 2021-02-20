@@ -26,6 +26,7 @@ class Model_Pipeline:
         self.pipeline = joblib.load(file)
 
     def pipelineData(self, data):
+        print(data)
         return self.pipeline.transform(data)
 
 
@@ -88,6 +89,8 @@ def preprocess(data_real, colum_name):
     data[f'tokenized_{colum_name}'] = data[colum_name].apply(lambda s: s.split())
     #add number of words column
     data[f'word_num_{colum_name}'] = data[f'tokenized_{colum_name}'].str.len()
+
+    return data
     
 
 
@@ -105,6 +108,8 @@ class CleaningTextData(BaseEstimator, TransformerMixin):
         
         # cleaning 
         data_new = preprocess(data_new, 'book_desc')
+        
+        print(data_new)
         data_new['book_genre_list'] = data_new['book_genre'].apply(lambda x: list(set((" ".join(str(x).split('|'))).split())) if x is not None else ['ok'])
         data_new['book_authors_list'] = data_new['book_authors'].apply(lambda x: list(set((" ".join(str(x).split('|'))).split())) if x is not None else ['ok'])
         data_new.book_format = data_new.book_format.fillna(data_new.book_format.mode())
