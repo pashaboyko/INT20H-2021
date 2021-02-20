@@ -1,1 +1,7 @@
 flask
+joblib
+sklearn
+pandas
+contractions
+matplotlib
+nltk

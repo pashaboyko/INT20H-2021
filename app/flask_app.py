@@ -4,7 +4,33 @@
 from flask import Flask
 import os
 import logg
-from Model_Pipeline import Pipeline
+import pandas as pd
+import numpy as np
+from pipeline import Model_Pipeline,CleaningTextData,FillingNaN,TfIdf
+import nltk
+import ssl
+
+import sys
+import os
+
+if os.environ.get('DISPLAY','') == '':
+    print('no display found. Using :0.0')
+    os.environ.__setitem__('DISPLAY', ':0.0')
+
+
+import os
+import matplotlib as mpl
+if os.environ.get('DISPLAY','') == '':
+    print('no display found. Using non-interactive Agg backend')
+    mpl.use('Agg')
+
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
+nltk.download()
 
 log = None
 app = Flask(__name__)
@@ -14,13 +40,20 @@ def hello_world():
 	return 'ВЕЛИКИЙ SYSAN делает вещи.'
 
 if __name__ == "__main__":
+	
     log_directory = 'log'
+    if not os.path.exists(log_directory):
+        os.makedirs(log_directory)
 
-    pipeline = new Pipeline("filename.pkl")
+    #log = logg.setup_logging('Server')
+    #log = logg.get_log("Web-server")
 
-    data = pipeline.pipelineData(data)
 
-    log = logg.setup_logging('Server')
-    log = logg.get_log("Web-server")
-	app.run(debug=True,host='0.0.0.0')
+    X_full = pd.read_csv('train.csv', index_col='id')
+    pipeline = Model_Pipeline("dft_idf_500.joblib")
 
+    data = pipeline.pipelineData(X_full)
+
+
+    print(data)
+    app.run(debug=True,host='0.0.0.0')
