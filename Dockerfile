@@ -1,9 +1,10 @@
-FROM ubuntu:latest
+FROM python:3.8-slim
 MAINTAINER Boiko Pavlo 'pboyko172839465@gmail.com'
-RUN apt-get update -y
-RUN apt-get install -y python-pip python-dev build-essential
-COPY . /app
-WORKDIR /app 
-RUN pip install -r requirements.txt
-ENTRYPOINT ['python']
-CMD ['app.py']
+
+WORKDIR /usr/src/app
+COPY ./INT20H-2021/requirements.txt ./
+RUN pip3 install --no-cache-dir -r requirements.txt 
+COPY ./INT20H-2021 .
+
+ENTRYPOINT  [ "python","-m", "app"]
+
