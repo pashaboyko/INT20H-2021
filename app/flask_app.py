@@ -29,6 +29,8 @@ def hello_world():
 	return 'ВЕЛИКИЙ SYSAN делает вещи.'
 
 if __name__ == "__main__":
+
+	app.run(debug=False,host='0.0.0.0')
 	
     log_directory = 'log'
     if not os.path.exists(log_directory):
@@ -45,4 +47,4 @@ if __name__ == "__main__":
 
 
     print(data)
-    app.run(debug=True,host='0.0.0.0')
+    
