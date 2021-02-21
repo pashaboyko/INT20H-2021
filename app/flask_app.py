@@ -73,5 +73,5 @@ if __name__ == "__main__":
     #log = logg.get_log("Web-server")
 
 
-    data = full()
+    data = func()
     app.run(debug=False,host='0.0.0.0')
