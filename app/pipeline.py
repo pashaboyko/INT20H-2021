@@ -26,8 +26,10 @@ class Model_Pipeline:
         self.pipeline = joblib.load(file)
 
     def pipelineData(self, data):
-        print(data)
         return self.pipeline.transform(data)
+
+    def predict(self, data):
+        return self.pipeline.predict(data)
 
 
 

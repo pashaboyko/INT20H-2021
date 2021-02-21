@@ -7,6 +7,7 @@ import logg
 import pandas as pd
 import numpy as np
 from pipeline import Model_Pipeline,CleaningTextData,FillingNaN,TfIdf
+from sklearn.ensemble import GradientBoostingRegressor
 import nltk
 import ssl
 
@@ -24,11 +25,42 @@ from nltk.stem import WordNetLemmatizer
 log = None
 app = Flask(__name__)
 
-data = ""
+data=''
 
 @app.route('/')
 def hello_world():
 	return str(data)
+
+
+
+def func():
+
+    X_full = pd.read_csv('test.csv', index_col='id')
+    pipeline = Model_Pipeline("dft_idf_200.joblib")
+
+    data = pipeline.pipelineData(X_full)
+
+    print("sdfknksdnfklsldnfnklsdnf")
+
+    print(type(data))
+
+
+    print("sdfknksdnfsdfklaslflnksalfdkklsldnfnklsdnf")
+    data = pd.DataFrame(data)
+
+    print(data)
+
+    print(type(data))
+
+
+    gbr_result = Model_Pipeline("GradientBoostingRegressor.joblib")
+    
+    prediction = gbr_result.predict(data)
+
+    submition_res = pd.DataFrame({'id': list(X_full.index), 'book_rating': prediction})
+    data = submition_res
+    print(submition_res)
+
 
 if __name__ == "__main__":
 	
@@ -40,11 +72,5 @@ if __name__ == "__main__":
     #log = logg.get_log("Web-server")
 
 
-    X_full = pd.read_csv('test.csv', index_col='id')
-    pipeline = Model_Pipeline("dft_idf_200.joblib")
-
-    data = pipeline.pipelineData(X_full)
-
-
-    print(data)
+    func()
     app.run(debug=False,host='0.0.0.0')
