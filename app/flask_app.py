@@ -25,7 +25,7 @@ from nltk.stem import WordNetLemmatizer
 log = None
 app = Flask(__name__)
 
-data=''
+data=""
 
 @app.route('/')
 def hello_world():
@@ -58,8 +58,9 @@ def func():
     prediction = gbr_result.predict(data)
 
     submition_res = pd.DataFrame({'id': list(X_full.index), 'book_rating': prediction})
-    data = submition_res
     print(submition_res)
+
+    return submition_res
 
 
 if __name__ == "__main__":
@@ -72,5 +73,5 @@ if __name__ == "__main__":
     #log = logg.get_log("Web-server")
 
 
-    func()
+    data = full()
     app.run(debug=False,host='0.0.0.0')
